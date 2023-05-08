@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Все статьи на сайте
+{% endblock %}
+<!-- {{ articles[0].title }} -->                               <!-- при помощи такой конструкции мы можем получать значения любой переменной из app.py. В данном случае это первый эллемент массивы из posts, который находится в render_templates -->
+{% block body %}
+<div class="container mt-5">
+    <h1>Все статьи на сайте</h1>
+                                                              <!-- так как из запроса мы получаем массив данных, то нам нужно перебирать это все циклом-->
+
+                                                                <!-- а так как статей много, то  надо это все делать в цикле-->
+    {% if articles|length > 0 %}
+
+        {% for el in articles %}                                    <!-- перебор всех значений в цикле-->
+        <div class="alert alert-info">
+            <h2>{{ el.title }}</h2>
+            <p>{{ el.info }}</p>
+            <p><b>Дата: {{ el.date.date() }}</b></p>
+            <a href="/posts/{{ el.id }}" class="btn btn-warning">Детальнее</a>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p>У Вас еще нет статей на сайте</p>
+    {% endif %}
+</div>
+
+{% endblock %}
